@@ -1,143 +1,47 @@
-var acum=0;
-var operador="";
-var coma=false;
+/*document.getElementById("1").addEventListener ("click",calculadora);
 
-function uno(){
-  document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "1";
-  //status=status+"1";
- // document.getElementById("1");
+function calculadora(){   
+    document.getElementById("display").innerHTML = "1"
+};*/
+
+/*var x = document.getElementsByClassName("tecla");
+
+for (i=0;i<x.length;i++){
+    console.log(i+" - "+x[i].id)
 }
+*/
+var men = 0;
 
-function dos(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "2";
- //status=status+"2";
-}
-
-function tres(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "3";
- //status=status+"3";
-}
-
-function cuatro(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "4";
- //status=status+"4";
-}
-
-function cinco(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "5";
- //status=status+"5";
-}
-
-function seis(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "6";
- //status=status+"6";
-}
-
-function siete(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "7";
- //status=status+"7";
-}
-
-function ocho(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "8";
- //status=status+"8";
-}
-
-function nueve(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "9";
- //status=status+"9";
-}
-
-function cero(){
- document.getElementById("display").innerHTML = document.getElementById("display").innerHTML + "0";
- //status=status+"0";
-}
-
-function coma(){
-  if (!coma){
-    if (document.getElementById("display").innerHTML=="")
-    document.getElementById("display").innerHTML="0";
-    document.getElementById("display").innerHTML=document.getElementById("display").innerHTML+".";
-   // status=status+".";
-    coma=true ;
-  }
-}
-
-function c(){
-  document.getElementById("display").innerHTML="";
-  coma=false;
-  //status="";
-}
-
-function masmenos(){
-  document.getElementById("display").innerHTML=(-1*(parseFloat(document.getElementById("display").innerHTML)));
-  /*if (acum==0)
-    status=document.getElementById("display").innerHTML;
-  else
-    status=acum + operador +document.getElementById("display").innerHTML;*/
-}
-
-function mas(){
-  acum=parseFloat(document.getElementById("display").innerHTML);
-  document.getElementById("display").innerHTML="";
-  operador="+";
-  coma=false;
-  //status=status+"+";
-}
-
-function menos(){
-  acum=parseFloat(document.getElementById("display").innerHTML);
-  document.getElementById("display").innerHTML="";
-  operador="-";
-  coma=false;
-  //status=status+"-";
-}
-
-function por()
+window.addEventListener("load",init,false);
+ 
+/*function init()
 {
- acum=parseFloat(document.getElementById("display").innerHTML);
- document.getElementById("display").innerHTML="";
- operador="*";
- coma=false;
- //status=status+"*";
-}
+    var divClass = document.querySelectorAll(".tecla");
 
-function entre()
+    for (i=0;i<divClass.length;i++){ 
+    divClass[i].addEventListener("click",mensaje);
+    }
+}*/
+
+function init()
 {
- acum=parseFloat(document.getElementById("display").innerHTML);
- document.getElementById("display").innerHTML="";
- operador="/";
- coma=false;
- //status=status+"/";
+    var divClass = document.querySelectorAll(".tecla");
+    divClass[0].addEventListener("click",mensaje(divClass[0].id));
+    divClass[1].addEventListener("click",mensaje(divClass[1].id));
+    divClass[2].addEventListener("click",mensaje(divClass[2].id));
+    divClass[3].addEventListener("click",mensaje(divClass[3].id));
+    divClass[4].addEventListener("click",mensaje(divClass[4].id));
+    divClass[5].addEventListener("click",mensaje(divClass[5].id));
+    divClass[6].addEventListener("click",mensaje);
+    divClass[7].addEventListener("click",mensaje);
+    divClass[8].addEventListener("click",mensaje);
+    divClass[9].addEventListener("click",mensaje);
+    divClass[10].addEventListener("click",mensaje);
 }
 
-function raiz(){
-  document.getElementById("display").innerHTML=Math.sqrt(document.getElementById("display").innerHTML).toPrecision(8);
+function mensaje(valor){
+   // console.log(men);
+    men = men +2;
+    console.log(valor)
+    //document.getElementById("display").innerHTML = valor;
 }
-
-function igual(){
-  var resul = 0;
-  switch (operador) {
-    case "+":
-      document.getElementById("display").innerHTML=acum+parseFloat(document.getElementById("display").innerHTML);
-    break;
-    case "-":
-      document.getElementById("display").innerHTML=acum-parseFloat(document.getElementById("display").innerHTML);
-    break;
-    case "*":
-      document.getElementById("display").innerHTML=acum*parseFloat(document.getElementById("display").innerHTML);
-    break;
-    case "/":
-      resul= acum/parseFloat(document.getElementById("display").innerHTML);
-      document.getElementById("display").innerHTML = resul.toPrecision(8);
-  }  
-}
-
-/*function animacion (){
-  document.getElementById('n1').style.webkitTransform = 'translate3d(500px, 0, 0)';
-  document.getElementById('n1').style.webkitTransform = 'translate3d(0, 0, 0)';
-  document.getElementById('n1').style="width:30%";
-  document.getElementById('n1').style="height:70px";
-}
-
-document.getElementById('n1').onclick=animacion;*/
