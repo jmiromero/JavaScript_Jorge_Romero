@@ -30,6 +30,7 @@ function On(){
 
 //Funcion que Valida el Cero a la Izquierda
 function CeroALaIzq (pantalla,tec){ 
+    AnimarBoton(tec);
     if (LargoDigitos() == false){
         var resultado = "";
         if (pantalla == "0"){
@@ -55,7 +56,14 @@ function LargoDigitos(){
     return resultado;
 }
 
+//Anima los Botones
+function AnimarBoton(tec){
+    document.getElementById(tec).style.transform = "scale(0.85,0.85)";
+    setTimeout(function(){document.getElementById(tec).style.transform = "scale(1,1)";}, 50);
+}
+
 function Calcular(pantalla,operacion){
+    AnimarBoton(operacion);
     var resultado = 0;
     switch(operacion){ //Reconoce que operacion se esta realizando y guarda el primer valor
         case "sign":
