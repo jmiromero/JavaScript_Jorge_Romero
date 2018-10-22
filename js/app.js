@@ -1,47 +1,142 @@
-/*document.getElementById("1").addEventListener ("click",calculadora);
+//Declaracion de variables globales
+var valor1 = "", valor2 ="", total = "", ig=false , sum=false, operador=""; 
 
-function calculadora(){   
-    document.getElementById("display").innerHTML = "1"
-};*/
+//Escuchadores de Clicks
+document.getElementById("1").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,1)});
+document.getElementById("2").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,2)});
+document.getElementById("3").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,3)});
+document.getElementById("4").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,4)});
+document.getElementById("5").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,5)});
+document.getElementById("6").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,6)});
+document.getElementById("7").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,7)});
+document.getElementById("8").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,8)});
+document.getElementById("9").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,9)});
+document.getElementById("0").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,0)});
+document.getElementById("on").addEventListener ("click", function(){document.getElementById("display").innerHTML = On()});
+document.getElementById("sign").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"sign")});
+document.getElementById("mas").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"mas")});
+document.getElementById("menos").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"menos")});
+document.getElementById("por").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"por")});
+document.getElementById("dividido").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"dividido")});
+document.getElementById("punto").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"punto")});
+document.getElementById("igual").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"igual")});
 
-/*var x = document.getElementsByClassName("tecla");
-
-for (i=0;i<x.length;i++){
-    console.log(i+" - "+x[i].id)
+//Funcion que pone en cero todo
+function On(){
+    valor1 = "", valor2 ="", total = "", ig=false , sum=false, operador=""; 
+    console.log("valor1: "+valor1+" - valor2: "+valor2+" - Total: "+total+" - ig: "+ig+" - sum: "+sum+" - operador: "+operador);
+    return "0";
 }
-*/
-var men = 0;
 
-window.addEventListener("load",init,false);
- 
-/*function init()
-{
-    var divClass = document.querySelectorAll(".tecla");
+//Funcion que Valida el Cero a la Izquierda
+function CeroALaIzq (pantalla,tec){ 
+    if (LargoDigitos() == false){
+        var resultado = "";
+        if (pantalla == "0"){
 
-    for (i=0;i<divClass.length;i++){ 
-    divClass[i].addEventListener("click",mensaje);
+            resultado = tec;
+
+        }else{
+            resultado = pantalla+tec;
+        }
+        return resultado;
+    }else{
+        return pantalla;
     }
-}*/
-
-function init()
-{
-    var divClass = document.querySelectorAll(".tecla");
-    divClass[0].addEventListener("click",mensaje(divClass[0].id));
-    divClass[1].addEventListener("click",mensaje(divClass[1].id));
-    divClass[2].addEventListener("click",mensaje(divClass[2].id));
-    divClass[3].addEventListener("click",mensaje(divClass[3].id));
-    divClass[4].addEventListener("click",mensaje(divClass[4].id));
-    divClass[5].addEventListener("click",mensaje(divClass[5].id));
-    divClass[6].addEventListener("click",mensaje);
-    divClass[7].addEventListener("click",mensaje);
-    divClass[8].addEventListener("click",mensaje);
-    divClass[9].addEventListener("click",mensaje);
-    divClass[10].addEventListener("click",mensaje);
 }
 
-function mensaje(valor){
-   // console.log(men);
-    men = men +2;
-    console.log(valor)
-    //document.getElementById("display").innerHTML = valor;
+//Controla la cantidad de digitos en pantalla
+function LargoDigitos(){
+    var resultado = false;
+    
+    if(document.getElementById("display").innerHTML.length > 7){
+        resultado = true;
+    }
+    return resultado;
 }
+
+function Calcular(pantalla,operacion){
+    var resultado = 0;
+    switch(operacion){ //Reconoce que operacion se esta realizando y guarda el primer valor
+        case "sign":
+            resultado = -1 * pantalla;
+            break;     
+        
+        case "mas":
+            valor1=pantalla;
+            resultado="0";
+            sum=true;
+            operador=operacion;
+            break;     
+        
+        case "menos":
+            valor1=pantalla;
+            resultado="0";
+            operador=operacion;
+        break;     
+        
+        case "por":
+            valor1=pantalla;
+            resultado="0";
+            operador=operacion;
+        break;     
+
+        case "dividido":
+            valor1=pantalla;
+            resultado="0";
+            operador=operacion;
+        break;     
+
+        case "igual":
+            switch (operador){  //Resuelve la operacion
+                case "mas":
+                    if(ig == false){
+                        valor2=pantalla;
+                        total=parseFloat(valor1) +parseFloat(valor2);
+                        resultado=total;
+                        ig=true;
+                    }else{
+                        if(sum==true){
+                            total=parseFloat(total)+parseFloat(valor2);
+                            resultado=total;
+                        }
+                    }
+                break;
+
+                case "menos":
+                    valor2=pantalla;
+                    total=parseFloat(valor1) -parseFloat(valor2);
+                    resultado=total;                    
+                break;
+
+                case "por":
+                    valor2=pantalla;
+                    total=parseFloat(valor1) * parseFloat(valor2);
+                break;
+
+                case "dividido":
+                    valor2=pantalla;
+                    total=parseFloat(valor1) / parseFloat(valor2);
+                    resultado=total;
+                break;
+            }
+        break;
+        
+        case "punto":
+            var pto=false;
+            console.log("primera entrada a punto. "+pantalla); //BORRAR!!
+            for(i=0; i<pantalla.length; i++){
+                if(pantalla[i]=="."){
+                    pto=true;
+                }
+            }
+            if(pto==false){
+                resultado=pantalla+".";
+            }else{
+                resultado=pantalla;
+            }
+        break;
+    }
+    return resultado;
+}
+
