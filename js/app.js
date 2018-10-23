@@ -20,9 +20,11 @@ document.getElementById("por").addEventListener ("click", function(){document.ge
 document.getElementById("dividido").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"dividido")});
 document.getElementById("punto").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"punto")});
 document.getElementById("igual").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"igual")});
+document.getElementById("raiz").addEventListener ("click", function(){document.getElementById("display").innerHTML = Calcular(document.getElementById("display").innerHTML,"raiz")});
 
 //Funcion que pone en cero todo
 function On(){
+    AnimarBoton("on");
     valor1 = "", valor2 ="", total = "", ig=false , sum=false, operador=""; 
     console.log("valor1: "+valor1+" - valor2: "+valor2+" - Total: "+total+" - ig: "+ig+" - sum: "+sum+" - operador: "+operador);
     return "0";
@@ -55,6 +57,17 @@ function LargoDigitos(){
     }
     return resultado;
 }
+
+/*function LargoResultado(valor){
+    var resultado=valor;
+    if(valor.length>7){
+        resultado = "E";
+        console.log("resultado tiene mas de 8 caracteres / resultado: "+resultado); //BORRAR!!!
+    }else{
+        resultado = total;
+    }
+    return resultado;
+}*/
 
 //Anima los Botones
 function AnimarBoton(tec){
@@ -98,28 +111,22 @@ function Calcular(pantalla,operacion){
         case "igual":
             switch (operador){  //Resuelve la operacion
                 case "mas":
-                    if(ig == false){
-                        valor2=pantalla;
-                        total=parseFloat(valor1) +parseFloat(valor2);
-                        resultado=total;
-                        ig=true;
-                    }else{
-                        if(sum==true){
-                            total=parseFloat(total)+parseFloat(valor2);
-                            resultado=total;
-                        }
-                    }
+                    valor2=pantalla;
+                    total=parseFloat(valor1) + parseFloat(valor2);
+                    resultado=total;  
+                 
                 break;
 
                 case "menos":
                     valor2=pantalla;
                     total=parseFloat(valor1) -parseFloat(valor2);
-                    resultado=total;                    
+                    resultado=total;             
                 break;
 
                 case "por":
                     valor2=pantalla;
                     total=parseFloat(valor1) * parseFloat(valor2);
+                    resultado=total;
                 break;
 
                 case "dividido":
@@ -143,6 +150,10 @@ function Calcular(pantalla,operacion){
             }else{
                 resultado=pantalla;
             }
+        break;
+
+        case "raiz":
+            resultado = Math.sqrt(pantalla);
         break;
     }
     return resultado;
