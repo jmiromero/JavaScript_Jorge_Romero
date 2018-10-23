@@ -26,7 +26,6 @@ document.getElementById("raiz").addEventListener ("click", function(){document.g
 function On(){
     AnimarBoton("on");
     valor1 = "", valor2 ="", total = "", ig=false , operador=""; 
-    console.log("valor1: "+valor1+" - valor2: "+valor2+" - Total: "+total+" - ig: "+ig+" - operador: "+operador);
     return "0";
 }
 
@@ -60,17 +59,15 @@ function LargoDigitos(){
     return resultado;
 }
 
-/*function LargoResultado(valor){
+//Controla la cantidad de digitos a mostrar en el resultado de la operacion
+function LargoResultado(valor){
     var resultado="";
-    console.log(typeof(valor));
-    if(valor.length>7){
+    if(valor>=100000000){
         resultado = "E";
-        console.log("resultado tiene mas de 8 caracteres / resultado: "+resultado); //BORRAR!!!
     }else{
-        resultado = total;
-        console.log("pase por control de resultado menor de 8 caracteres");
+        resultado =valor;
     }
-    return resultado;*/
+    return resultado;
 }
 
 //Anima los Botones
@@ -81,7 +78,7 @@ function AnimarBoton(tec){
 
 function Calcular(pantalla,operacion){
     AnimarBoton(operacion);
-    var resultado = 0;
+    var resultado = "";
     switch(operacion){ //Reconoce que operacion se esta realizando y guarda el primer valor
         case "sign":
             resultado = -1 * pantalla;
@@ -124,7 +121,7 @@ function Calcular(pantalla,operacion){
                         valor2=pantalla;
                     }
                     total=parseFloat(valor1) + parseFloat(valor2);
-                    resultado=total;       
+                    resultado=LargoResultado(total);       
                 break;
 
                 case "menos":
@@ -134,7 +131,7 @@ function Calcular(pantalla,operacion){
                         valor2=pantalla;
                     }
                     total=parseFloat(valor1) -parseFloat(valor2);
-                    resultado=total;             
+                    resultado=LargoResultado(total);                
                 break;
 
                 case "por":
@@ -144,7 +141,7 @@ function Calcular(pantalla,operacion){
                         valor2=pantalla;
                     }
                     total=parseFloat(valor1) * parseFloat(valor2);
-                    resultado=total;
+                    resultado=LargoResultado(total);    
                 break;
 
                 case "dividido":
@@ -154,11 +151,10 @@ function Calcular(pantalla,operacion){
                         valor2=pantalla;
                     }
                     total=parseFloat(valor1) / parseFloat(valor2);
-                    resultado=total;
+                    resultado=LargoResultado(total);    
                 break;
             }
             ig=true;
-        
         break;
         
         case "punto":
