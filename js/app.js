@@ -1,5 +1,5 @@
 //Declaracion de variables globales
-var valor1 = "", valor2 ="", total = "", ig=false , sum=false, operador=""; 
+var valor1 = "", valor2 ="", total = "", ig=false, operador=""; 
 
 //Escuchadores de Clicks
 document.getElementById("1").addEventListener ("click", function(){document.getElementById("display").innerHTML = CeroALaIzq(document.getElementById("display").innerHTML,1)});
@@ -25,33 +25,35 @@ document.getElementById("raiz").addEventListener ("click", function(){document.g
 //Funcion que pone en cero todo
 function On(){
     AnimarBoton("on");
-    valor1 = "", valor2 ="", total = "", ig=false , sum=false, operador=""; 
-    console.log("valor1: "+valor1+" - valor2: "+valor2+" - Total: "+total+" - ig: "+ig+" - sum: "+sum+" - operador: "+operador);
+    valor1 = "", valor2 ="", total = "", ig=false , operador=""; 
+    console.log("valor1: "+valor1+" - valor2: "+valor2+" - Total: "+total+" - ig: "+ig+" - operador: "+operador);
     return "0";
 }
 
-//Funcion que Valida el Cero a la Izquierda
+//Funcion que Valida el Cero a la Izquierda 
 function CeroALaIzq (pantalla,tec){ 
     AnimarBoton(tec);
-    if (LargoDigitos() == false){
-        var resultado = "";
-        if (pantalla == "0"){
-
-            resultado = tec;
-
+    if(ig==false){
+        if (LargoDigitos() == false){   
+            var resultado = "";
+            if (pantalla == "0"){
+                resultado = tec;
+            }else{
+                resultado = pantalla+tec;
+            }
+            return resultado;
         }else{
-            resultado = pantalla+tec;
+            return pantalla;
         }
-        return resultado;
     }else{
-        return pantalla;
+        On();
+        return tec;
     }
 }
 
 //Controla la cantidad de digitos en pantalla
 function LargoDigitos(){
     var resultado = false;
-    
     if(document.getElementById("display").innerHTML.length > 7){
         resultado = true;
     }
@@ -59,15 +61,17 @@ function LargoDigitos(){
 }
 
 /*function LargoResultado(valor){
-    var resultado=valor;
+    var resultado="";
+    console.log(typeof(valor));
     if(valor.length>7){
         resultado = "E";
         console.log("resultado tiene mas de 8 caracteres / resultado: "+resultado); //BORRAR!!!
     }else{
         resultado = total;
+        console.log("pase por control de resultado menor de 8 caracteres");
     }
-    return resultado;
-}*/
+    return resultado;*/
+}
 
 //Anima los Botones
 function AnimarBoton(tec){
@@ -86,60 +90,79 @@ function Calcular(pantalla,operacion){
         case "mas":
             valor1=pantalla;
             resultado="0";
-            sum=true;
             operador=operacion;
-            break;     
+            ig=false;
+        break;     
         
         case "menos":
             valor1=pantalla;
             resultado="0";
             operador=operacion;
+            ig=false;
         break;     
         
         case "por":
             valor1=pantalla;
             resultado="0";
             operador=operacion;
+            ig=false;
         break;     
 
         case "dividido":
             valor1=pantalla;
             resultado="0";
             operador=operacion;
+            ig=false;
         break;     
 
         case "igual":
             switch (operador){  //Resuelve la operacion
                 case "mas":
-                    valor2=pantalla;
+                    if (ig==true){  //valida si se preciono nuevamente el igual para recalcular con el último digito ingresado
+                        valor1=pantalla;
+                    }else{
+                        valor2=pantalla;
+                    }
                     total=parseFloat(valor1) + parseFloat(valor2);
-                    resultado=total;  
-                 
+                    resultado=total;       
                 break;
 
                 case "menos":
-                    valor2=pantalla;
+                    if (ig==true){
+                        valor1=pantalla;
+                    }else{
+                        valor2=pantalla;
+                    }
                     total=parseFloat(valor1) -parseFloat(valor2);
                     resultado=total;             
                 break;
 
                 case "por":
-                    valor2=pantalla;
+                    if (ig==true){
+                        valor1=pantalla;
+                    }else{
+                        valor2=pantalla;
+                    }
                     total=parseFloat(valor1) * parseFloat(valor2);
                     resultado=total;
                 break;
 
                 case "dividido":
-                    valor2=pantalla;
+                    if (ig==true){
+                        valor1=pantalla;
+                    }else{
+                        valor2=pantalla;
+                    }
                     total=parseFloat(valor1) / parseFloat(valor2);
                     resultado=total;
                 break;
             }
+            ig=true;
+        
         break;
         
         case "punto":
             var pto=false;
-            console.log("primera entrada a punto. "+pantalla); //BORRAR!!
             for(i=0; i<pantalla.length; i++){
                 if(pantalla[i]=="."){
                     pto=true;
